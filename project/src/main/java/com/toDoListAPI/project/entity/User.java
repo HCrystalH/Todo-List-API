@@ -12,9 +12,9 @@ import java.util.List;
 @Setter
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // use this to tell Hibernate use SERIAL or IDENTITY -> better than AUTO (slower)
     @Column(name="user_id")
-    private Long ID;
+    private Long id;
 
     @Column(nullable = false)
     private String name;

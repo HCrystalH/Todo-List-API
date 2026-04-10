@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 public class Todo {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -33,4 +33,10 @@ public class Todo {
     @Column(name="updated_at",nullable = false)
     private LocalDateTime updatedAt;
 
+    // Automating timestamp -> no need to manually set these when save a task
+    @PrePersist
+    protected void onCreate(){
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
 }
