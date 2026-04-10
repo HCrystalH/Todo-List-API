@@ -26,3 +26,7 @@ Phase 1: Set up environment and Database connection
    2nd solution: use bootrun: and add env when run = by CLI
 
 Phase 2: : Schema Design & Entities (Mapping User and Todo to the database)
+    1. Design 2 tables with corresponding constraints(NOT NULL,PK,FK) and relationship ( 1toMany, ManyToOne)
+    2. Write 2 entities (User and Todo) and repositories
+        * There are some keywords about naming table name. For example, I tried to name "user" and get the error -> "users" worked
+    3. Run and check existing tables in DB (E.g: pgadmin4 , remember to check the correct connection when trying to test queries)
