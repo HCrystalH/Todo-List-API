@@ -1,0 +1,28 @@
+Phase 1: Set up environment and Database connection
+   1. Go to https://start.spring.io/ to fast configure project
+    Project : Maven
+    Language: Java
+    Spring Boot: 3.x.x ( Don't use SNAPSHOT)
+    Packaging: Jar
+    Java: 17 or 21 -> 2 most popular
+   2. Dependencies:
+   Spring Web: For building RESTful web app
+   Spring Data JPA: For Database interaction and ORM --> the annoy one appear here
+   PostgreSQL Driver: To connect postgreSQL DB  --> must have if using postgreSQL
+   Spring Security: for Authen & Author
+   Validation: validating HTTP requests
+   3. Configure the DB connection
+   - Using docker for convenient I think so
+        Step 1: Download Docker desktop --> must have WSL if using window OS
+        Step 2: Search DB u want to use (e.g postgreSQL). In these sites have guidance
+            1. docker pull postgres:15
+            2. Use this image: $ docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+                --> However, I create a file 'docker-compose.yml' , configuring this file
+            3. Then Just need to run command: docker compose up -d
+            4. Start the application
+   *** Timezone error***
+   1st solution: Using Intellij IDE --> click to edit --> select modify option button --> add VM options --> paste
+        "-Duser.timezone=Asia/Ho_Chi_Minh" (replace with corresponding timezone in location and remove "")
+   2nd solution: use bootrun: and add env when run = by CLI
+
+Phase 2: : Schema Design & Entities (Mapping User and Todo to the database)
