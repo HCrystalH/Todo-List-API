@@ -25,8 +25,21 @@ Phase 1: Set up environment and Database connection
         "-Duser.timezone=Asia/Ho_Chi_Minh" (replace with corresponding timezone in location and remove "")
    2nd solution: use bootrun: and add env when run = by CLI
 
-Phase 2: : Schema Design & Entities (Mapping User and Todo to the database)
+Phase 2: Schema Design & Entities (Mapping User and Todo to the database)
     1. Design 2 tables with corresponding constraints(NOT NULL,PK,FK) and relationship ( 1toMany, ManyToOne)
     2. Write 2 entities (User and Todo) and repositories
         * There are some keywords about naming table name. For example, I tried to name "user" and get the error -> "users" worked
     3. Run and check existing tables in DB (E.g: pgadmin4 , remember to check the correct connection when trying to test queries)
+
+Phase 3: Security and Authentication - The heavy one
+We need to implement JWT authentication -> allows user log in once -> get a token -> show token for every subsequent request
+We need to create 3 main components
+    1. Security Configuration: To tell Spring which URLs are public (like /register and /login) which one require a token
+    2. JWT ultil: to handle creating the token and reading
+    3. Authentication: handle the actual logic of checking password & return token
+        * add JWT dependency to pom.xml
+        * hashing password
+
+Phase 4: Todo CRUD & Authorization (building the endpoints and ensuring users can only touch their own data)
+
+Phase 5: Refinement (Pagination, Global Error Handling, Validation)
