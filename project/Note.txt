@@ -41,6 +41,17 @@ We need to create 3 main components
         * hashing password
     4. Data Transfer Layer (DTOs)
         * Never send password back to user in JSON response, then customize response and request format
+    5. Some noted points:
+        - When a task need connection to Database -> we need @Transactional
+        - meta-annotated with @Component
+            + @Component: use cases -> Generic bean ( Generic utilities)
+            + @Repository : use cases -> Data access layer ( Database layer)
+            + @Service : use case -> Business logic layer
+            + @Controller: use case -> Web layer (MVC)  ( APIs)
+        - @Bean , Bean scope, bean lifecycle
+        - @Component vs @Configuration
+        - hibernate ddl-auto, there are 2 differences in create and update mode'
+        - JWT is stateless and that's why we dont store it in Database --> no cost because no query
 
 Phase 4: Todo CRUD & Authorization (building the endpoints and ensuring users can only touch their own data)
 
