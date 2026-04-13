@@ -14,15 +14,15 @@ import java.util.Date;
 @Component
 public class JwtUtils {
 
-    private String jwtSecret ="your-super-long-secret-key-that-must-be-at-least-32-characters-long";
+    private String jwtSecret ="VGhpc0lzTXlTdXBlclNlY3JldEtleUZvck15VG9kb0FwcFByb2plY3QyMDI2";
     private final int jwtExpirationMs = 86400000; // 24h
 
     private Key getSigningKey(){
-//        byte[] keyBytes = Decoders.BASE64.decode(jwtSecret);
-//        return Keys.hmacShaKeyFor(keyBytes);
-
-        byte[] keyBytes = jwtSecret.getBytes(StandardCharsets.UTF_8);
+        byte[] keyBytes = Decoders.BASE64.decode(jwtSecret);
         return Keys.hmacShaKeyFor(keyBytes);
+
+//        byte[] keyBytes = jwtSecret.getBytes(StandardCharsets.UTF_8);
+//        return Keys.hmacShaKeyFor(keyBytes);
     }
 
     public String generateToken(String email){
