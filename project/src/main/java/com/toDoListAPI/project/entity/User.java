@@ -13,7 +13,7 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // use this to tell Hibernate use SERIAL or IDENTITY -> better than AUTO (slower)
-    @Column(name="user_id")
+    @Column(name="user_id",nullable = false)
     private Long id;
 
     @Column(nullable = false)

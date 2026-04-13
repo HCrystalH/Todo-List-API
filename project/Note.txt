@@ -35,10 +35,12 @@ Phase 3: Security and Authentication - The heavy one
 We need to implement JWT authentication -> allows user log in once -> get a token -> show token for every subsequent request
 We need to create 3 main components
     1. Security Configuration: To tell Spring which URLs are public (like /register and /login) which one require a token
-    2. JWT ultil: to handle creating the token and reading
+    2. JWT utils: to handle creating the token and reading
     3. Authentication: handle the actual logic of checking password & return token
         * add JWT dependency to pom.xml
         * hashing password
+    4. Data Transfer Layer (DTOs)
+        * Never send password back to user in JSON response, then customize response and request format
 
 Phase 4: Todo CRUD & Authorization (building the endpoints and ensuring users can only touch their own data)
 
