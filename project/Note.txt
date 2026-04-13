@@ -25,8 +25,34 @@ Phase 1: Set up environment and Database connection
         "-Duser.timezone=Asia/Ho_Chi_Minh" (replace with corresponding timezone in location and remove "")
    2nd solution: use bootrun: and add env when run = by CLI
 
-Phase 2: : Schema Design & Entities (Mapping User and Todo to the database)
+Phase 2: Schema Design & Entities (Mapping User and Todo to the database)
     1. Design 2 tables with corresponding constraints(NOT NULL,PK,FK) and relationship ( 1toMany, ManyToOne)
     2. Write 2 entities (User and Todo) and repositories
         * There are some keywords about naming table name. For example, I tried to name "user" and get the error -> "users" worked
     3. Run and check existing tables in DB (E.g: pgadmin4 , remember to check the correct connection when trying to test queries)
+
+Phase 3: Security and Authentication - The heavy one
+We need to implement JWT authentication -> allows user log in once -> get a token -> show token for every subsequent request
+We need to create 3 main components
+    1. Security Configuration: To tell Spring which URLs are public (like /register and /login) which one require a token
+    2. JWT utils: to handle creating the token and reading
+    3. Authentication: handle the actual logic of checking password & return token
+        * add JWT dependency to pom.xml
+        * hashing password
+    4. Data Transfer Layer (DTOs)
+        * Never send password back to user in JSON response, then customize response and request format
+    5. Some noted points:
+        - When a task need connection to Database -> we need @Transactional
+        - meta-annotated with @Component
+            + @Component: use cases -> Generic bean ( Generic utilities)
+            + @Repository : use cases -> Data access layer ( Database layer)
+            + @Service : use case -> Business logic layer
+            + @Controller: use case -> Web layer (MVC)  ( APIs)
+        - @Bean , Bean scope, bean lifecycle
+        - @Component vs @Configuration
+        - hibernate ddl-auto, there are 2 differences in create and update mode'
+        - JWT is stateless and that's why we dont store it in Database --> no cost because no query
+
+Phase 4: Todo CRUD & Authorization (building the endpoints and ensuring users can only touch their own data)
+
+Phase 5: Refinement (Pagination, Global Error Handling, Validation)
