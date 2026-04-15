@@ -54,5 +54,10 @@ We need to create 3 main components
         - JWT is stateless and that's why we dont store it in Database --> no cost because no query
 
 Phase 4: Todo CRUD & Authorization (building the endpoints and ensuring users can only touch their own data)
-
+We need to build 3 things:
+    1. A JWT Filter: 'checkpoint' that runs before every request to check token valid or not.
+        * The reason why we extract and put 'email' into SecurityContextHolder instead of passing as a variable to Controller
+            -> avoid "Parameter Pollution", put 'email' to SecurityContextHolder like Global Variable
+    2. Todo Service: handle logic CRUD
+    3. Todo Controller: specific endpoints
 Phase 5: Refinement (Pagination, Global Error Handling, Validation)
