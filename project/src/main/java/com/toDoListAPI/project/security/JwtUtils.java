@@ -45,6 +45,7 @@ public class JwtUtils {
 
     public boolean validateToken(String authToken){
         try{
+            // Check the Signature on Token
             Jwts.parserBuilder().setSigningKey(getSigningKey()).build().parseClaimsJws(authToken);
             return true;
         } catch (Exception e){

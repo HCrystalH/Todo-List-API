@@ -1,11 +1,13 @@
 package com.toDoListAPI.project.repository;
 
 import com.toDoListAPI.project.entity.Todo;
-import org.springframework.data.domain.Page;
+import com.toDoListAPI.project.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 public interface TodoRepository extends JpaRepository<Todo,Long> {
 
     // Custom queries for pagination/filtering later!
-//    Page<Todo> findByUserId(Long userId, Pageable pageable);
+    List<Todo> findByUser(User user);
 }
