@@ -70,3 +70,38 @@ Phase 5: Refinement (Pagination, Global Error Handling, Validation)
     3. Global Error Handling
         * Handle user friendly message with specific errors such as empty fields, invalid user,...
 Phase 6: Testing
+    1. Unit test
+        * Goal: Test 1 single class in isolation
+        * Use mockito  & Junit toolkit
+        * Pattern : AAA
+            + Arrange : Set up the data and tell Mockito how to behave
+            + Act : Call the actual method want to test
+            + Assert : Check if the result is what expected
+        * Annotation:
+            + @Mock: create "empty shell" objects of our repositories and security classes. these objects
+            have no logic, they only do what we tell them to do during the test
+            + @InjectMocks: This creates a real instance of 'TodoService' and automatically "plugs in"
+            the mocked 'TodoRepository' and 'UserRepository' into it. and also ensure 'TodoService' isn't talking
+            to the actual PostgreSQL database
+        * Pattern explanation:
+            + Arrange Phase: Setting the Scene
+                - For example, User A ( Attacker): ID:1, email:user_a@example.com; User B(Victim): ID:2,email: everything@example.com
+                    we create a task (todo object) with Id:100 and set owner is User B.
+                - Mocking Security Context: in the real application we have JWTAuthenticationFilter, it sets the user in
+                the "Security Context". In the unit test , it does not run -> do it manually
+                    1. Tell the 'SecurityContext' return 'authentication' mock
+                    2. tell 'authentication' mock return String 'user_a@test.com' when asked for the "Principal" (the logged in identity)
+                    3. Finally, tell the 'userRepository' to return User A when the service searches for that email.
+                - Mocking Repository: tell the 'todoRepository' that when someone asks for ID 100, it should return the Todo belongs
+                to the User B.
+            + Act & Arrange Phase: Testing the logic
+                - assertThrows(RuntimeException.class,...). This is a special JUnit method. It says "I'm going to call 'deleteTodo
+                and I expect it to fail with a RuntimeException". If the code succeeds or throws a different error, the test fails
+                - Service call, not match -> throw exception
+                - assertEquals(...) verify error message the user sees is exactly what we intended, preventing weird error logs(what
+                we doesn't expect to see)
+            + Verify phase: Final Security check
+                + 'verify(todoRepository, never()).delete(any())'-> "Safety Net". Check delete method on DB repo was called or not ?
+                    - if logic was broken and the code accidentally deleted the task before checking the ID, this line would let
+                    the test fail
+                    - So that , we has proven that not only an error was thrown , but also no data was harmed in the process.
