@@ -6,7 +6,6 @@ import com.toDoListAPI.project.dto.TodoResponse;
 import com.toDoListAPI.project.service.TodoService;
 import jakarta.annotation.Nonnull;
 import jakarta.validation.Valid;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,8 +28,12 @@ public class TodoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TodoResponse>> getAll(){
-        return ResponseEntity.ok(todoService.getMyTodos());
+    public ResponseEntity<List<TodoResponse>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "createdAt") String sortBy
+    ){
+        return ResponseEntity.ok(todoService.getMyTodos(page,size,sortBy));
     }
 
     @PatchMapping("/update/{id}")
