@@ -7,6 +7,9 @@ import com.toDoListAPI.project.entity.User;
 import com.toDoListAPI.project.repository.TodoRepository;
 import com.toDoListAPI.project.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,10 +36,12 @@ public class TodoService {
         return mapToResponse(saved);
     }
 
-    public List<TodoResponse> getMyTodos(){
+    public List<TodoResponse> getMyTodos(int page, int size,String sortBy){
         User user = getCurrentUser();
 
-        return todoRepository.findByUser(user)  // return list of Todo object
+        // Create a page request: page 0 ,size 10, sorted by created_at descending
+        Pageable pageable = PageRequest.of(page,size, Sort.by(sortBy).descending());
+        return todoRepository.findByUser(user,pageable)  // return list of Todo object
                 .stream()                       // Convert  to pipeline to process each one by one
                 .map(this::mapToResponse)       // transform each element Todo -> TodoResponse by mapToResponse method
                 .toList();                      // to List<ToDoResponse>

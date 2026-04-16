@@ -61,3 +61,12 @@ We need to build 3 things:
     2. Todo Service: handle logic CRUD
     3. Todo Controller: specific endpoints
 Phase 5: Refinement (Pagination, Global Error Handling, Validation)
+    1. Pagination and Sorting
+        -> For example, we have 5000 Todos, sending all in 1 JSON response would slow down,
+         waste server memory(RAM), increase Database load
+         * Pageable interface --> have to update service layer --> also update Controller
+    2. Validation
+        * Use @Valid annotation of jakarta library
+    3. Global Error Handling
+        * Handle user friendly message with specific errors such as empty fields, invalid user,...
+Phase 6: Testing

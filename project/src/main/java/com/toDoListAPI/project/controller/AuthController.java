@@ -4,6 +4,7 @@ import com.toDoListAPI.project.dto.JwtResponse;
 import com.toDoListAPI.project.dto.LoginRequest;
 import com.toDoListAPI.project.dto.RegisterRequest;
 import com.toDoListAPI.project.service.AuthService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +23,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest request){
+    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest request){
         authService.registerUser(request);
         return ResponseEntity.ok("User registered successfully");
     }
